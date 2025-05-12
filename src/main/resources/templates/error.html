@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Error</title>
+    <link rel="stylesheet" href="https://cdn.tailwindcss.com">
+</head>
+
+<body class="bg-red-50 text-gray-900">
+    <div class="max-w-xl mx-auto mt-20 p-6 bg-white border border-red-300 shadow rounded">
+        <h1 class="text-2xl font-bold text-red-600 mb-4">Oops! Something went wrong</h1>
+        <p th:text="${error}" class="mb-4 text-lg"></p>
+        <a href="/" class="text-blue-600 hover:underline">Back to home</a>
+    </div>
+</body>
+
+</html>

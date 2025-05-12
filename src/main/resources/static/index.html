@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.7s;
+        }
+
+        .bg-glass {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.09);
+        }
+
+        .form-gradient {
+            background: linear-gradient(135deg, #e0e7ff 0%, #bbf7d0 100%);
+        }
+
+        .btn-main {
+            background: linear-gradient(90deg, #22d3ee 0%, #6366f1 100%);
+            color: white;
+        }
+
+        .btn-main:hover {
+            background: linear-gradient(90deg, #6366f1 0%, #22d3ee 100%);
+        }
+
+        .btn-alt {
+            background: linear-gradient(90deg, #4ade80 0%, #a7f3d0 100%);
+            color: #065f46;
+        }
+
+        .btn-alt:hover {
+            background: linear-gradient(90deg, #a7f3d0 0%, #4ade80 100%);
+        }
+
+        .input-style {
+            background: rgba(245, 245, 255, 0.97);
+            transition: box-shadow 0.18s;
+        }
+
+        .input-style:focus {
+            box-shadow: 0 0 0 2px #22d3ee77;
+            border-color: #22d3ee;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen form-gradient">
+    <div class="bg-glass rounded-3xl shadow-2xl p-10 w-full max-w-md animate-fadeIn">
+        <!-- Login Form -->
+        <div id="login-form" class="space-y-8">
+            <h2 class="text-3xl font-extrabold text-center text-cyan-600 mb-4 drop-shadow">Sign In</h2>
+            <form action="/auth/login" method="post" class="space-y-5" autocomplete="off" id="loginForm">
+                <div>
+                    <label for="email-login" class="block text-sm font-medium text-gray-700 mb-1">Email:</label>
+                    <input type="text" id="email-login" name="username"
+                        class="input-style w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
+                        required>
+                </div>
+                <div>
+                    <label for="password-login" class="block text-sm font-medium text-gray-700 mb-1">Password:</label>
+                    <input type="password" id="password-login" name="password"
+                        class="input-style w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
+                        required>
+                </div>
+                <button type="submit" class="w-full py-2 btn-main rounded-xl text-lg font-semibold transition">
+                    Sign In
+                </button>
+            </form>
+            <p class="text-center text-sm text-gray-700">Don't have an account?
+                <a href="#" id="show-register" class="text-cyan-600 hover:underline font-medium transition">Register</a>
+            </p>
+        </div>
+
+        <!-- Register Form -->
+        <div id="register-form" class="space-y-8 hidden">
+            <h2 class="text-3xl font-extrabold text-center text-emerald-500 mb-4 drop-shadow">Register</h2>
+            <form id="registerForm" class="space-y-5" autocomplete="off">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username:</label>
+                    <input type="text" id="username" name="username"
+                        class="input-style w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+                        required>
+                </div>
+                <div>
+                    <label for="email-register" class="block text-sm font-medium text-gray-700 mb-1">Email:</label>
+                    <input type="email" id="email-register" name="email"
+                        class="input-style w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+                        required>
+                </div>
+                <div>
+                    <label for="password-register"
+                        class="block text-sm font-medium text-gray-700 mb-1">Password:</label>
+                    <input type="password" id="password-register" name="password"
+                        class="input-style w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+                        required>
+                </div>
+                <div>
+                    <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm
+                        password:</label>
+                    <input type="password" id="confirm-password" name="confirmPassword"
+                        class="input-style w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+                        required>
+                </div>
+                <button type="submit"
+                    class="w-full py-2 btn-alt rounded-xl text-lg font-semibold transition">Register</button>
+            </form>
+            <p class="text-center text-sm text-gray-700">Already have an account?
+                <a href="#" id="show-login" class="text-emerald-600 hover:underline font-medium transition">Sign In</a>
+            </p>
+        </div>
+    </div>
+    <script>
+        // Switch between forms
+        document.getElementById('show-register').addEventListener('click', () => {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.remove('hidden');
+        });
+        document.getElementById('show-login').addEventListener('click', () => {
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('hidden');
+        });
+        // Register user
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email-register').value;
+            const password = document.getElementById('password-register').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            try {
+                const response = await fetch('/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+                if (response.ok) {
+                    alert('Registration successful! Please sign in.');
+                    document.getElementById('register-form').classList.add('hidden');
+                    document.getElementById('login-form').classList.remove('hidden');
+                } else {
+                    const errorText = await response.text();
+                    alert('Registration error: ' + errorText);
+                }
+            } catch (error) {
+                alert('An error occurred during registration.');
+            }
+        });
+        // Login user
+        // Повністю стандартний сабміт без fetch, як у твоєму старому коді
+    </script>
+</body>
+
+</html>

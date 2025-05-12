@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .sidebar-gray {
+            background: linear-gradient(180deg, #23272f 0%, #3a3f4b 100%);
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.08rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            color: #e5e7eb;
+            transition: background 0.18s, color 0.18s;
+        }
+
+        .sidebar-link svg {
+            flex-shrink: 0;
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: #4b5563;
+            color: #fff !important;
+        }
+
+        .sidebar-link.logout {
+            color: #ef4444;
+        }
+
+        .sidebar-link.logout:hover {
+            background: #fee2e2;
+            color: #b91c1c !important;
+        }
+
+        .sidebar-logo {
+            letter-spacing: 0.04em;
+        }
+
+        .card-glass {
+            background: rgba(249, 250, 251, 0.97);
+            box-shadow: 0 4px 16px 0 rgba(31, 41, 55, 0.12);
+            border: 1px solid #e5e7eb;
+            transition: transform 0.18s, box-shadow 0.18s;
+        }
+
+        .card-glass:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 10px 28px 0 rgba(31, 41, 55, 0.18), 0 2px 4px 0 rgba(107, 114, 128, 0.13);
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 1.2rem;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.3rem;
+            box-shadow: 0 2px 8px 0 rgba(75, 85, 99, 0.10);
+        }
+
+        .btn-main {
+            background: #4b5563;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2.5rem;
+            border-radius: 0.75rem;
+            transition: background 0.18s, transform 0.15s;
+            font-size: 1.08rem;
+            box-shadow: 0 2px 8px 0 rgba(75, 85, 99, 0.10);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-main:hover {
+            background: #374151;
+            transform: translateY(-3px) scale(1.03);
+        }
+
+        .btn-logout {
+            background: #ef4444;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.75rem 2.5rem;
+            border-radius: 0.75rem;
+            transition: background 0.18s, color 0.18s, transform 0.15s;
+            font-size: 1.08rem;
+            box-shadow: 0 2px 8px 0 rgba(249, 56, 56, 0.10);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-logout:hover {
+            background: #b91c1c;
+            color: #fff;
+            transform: translateY(-3px) scale(1.03);
+        }
+    </style>
+</head>
+
+<body class="font-sans bg-gray-100 min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="sidebar-gray w-64 min-h-screen text-white flex flex-col py-6 px-4 shadow-2xl">
+        <div class="mb-12 flex flex-col items-center">
+            <img src="https://img.icons8.com/fluency/48/000000/bus.png" alt="Bus" class="w-12 h-12 mb-2 drop-shadow-lg">
+            <span class="text-2xl font-extrabold sidebar-logo">User Panel</span>
+        </div>
+        <nav class="flex-1 flex flex-col space-y-2">
+            <a href="/user/routes" class="sidebar-link active">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 13V6a2 2 0 0 0-2-2h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a2 2 0 0 0-2 2v7"></path>
+                    <rect width="20" height="8" x="2" y="13" rx="2"></rect>
+                </svg>
+                View Routes
+            </a>
+            <a href="/user/buses" class="sidebar-link">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect width="18" height="10" x="3" y="7" rx="3"></rect>
+                    <circle cx="7.5" cy="17.5" r="1.5"></circle>
+                    <circle cx="16.5" cy="17.5" r="1.5"></circle>
+                </svg>
+                View Buses
+            </a>
+            <a href="/user/reservations" class="sidebar-link">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect width="18" height="12" x="3" y="8" rx="2"></rect>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 8V6a5 5 0 0 1 10 0v2"></path>
+                </svg>
+                Reservations
+            </a>
+            <a href="/auth/logout" class="sidebar-link logout mt-5">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h4"></path>
+                </svg>
+                Logout
+            </a>
+        </nav>
+        <div class="text-xs text-gray-400 mt-auto text-center pt-8">
+            &copy; <span id="year"></span> Bus Booking
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col p-10">
+        <div class="text-4xl font-extrabold text-gray-800 mb-8 drop-shadow">Welcome to the User Dashboard</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <a href="/user/routes"
+                class="card-glass rounded-2xl shadow-xl p-8 flex flex-col items-center group transition">
+                <div class="card-icon shadow-md">
+                    <img src="https://img.icons8.com/color/48/000000/road.png" alt="Routes">
+                </div>
+                <h2 class="text-xl font-bold text-gray-700 mb-1 group-hover:text-gray-800 transition">View Routes</h2>
+                <p class="text-gray-600 text-center mb-4">Explore available routes and schedules.</p>
+                <span class="mt-auto btn-main group-hover:opacity-90 transition">Go to Routes</span>
+            </a>
+            <a href="/user/buses"
+                class="card-glass rounded-2xl shadow-xl p-8 flex flex-col items-center group transition">
+                <div class="card-icon shadow-md">
+                    <img src="https://img.icons8.com/color/48/000000/bus.png" alt="Buses">
+                </div>
+                <h2 class="text-xl font-bold text-gray-700 mb-1 group-hover:text-gray-800 transition">View Buses</h2>
+                <p class="text-gray-600 text-center mb-4">Check bus schedules and availability.</p>
+                <span class="mt-auto btn-main group-hover:opacity-90 transition">Go to Buses</span>
+            </a>
+            <a href="/user/reservations"
+                class="card-glass rounded-2xl shadow-xl p-8 flex flex-col items-center group transition">
+                <div class="card-icon shadow-md">
+                    <img src="https://img.icons8.com/color/48/000000/ticket.png" alt="Reservations">
+                </div>
+                <h2 class="text-xl font-bold text-gray-700 mb-1 group-hover:text-gray-800 transition">Reservations</h2>
+                <p class="text-gray-600 text-center mb-4">Check or manage your reservations.</p>
+                <span class="mt-auto btn-main group-hover:opacity-90 transition">Go to Reservations</span>
+            </a>
+            <a href="/auth/logout"
+                class="card-glass rounded-2xl shadow-xl p-8 flex flex-col items-center group transition">
+                <div class="card-icon shadow-md">
+                    <img src="https://img.icons8.com/color/48/000000/logout-rounded-left.png" alt="Logout">
+                </div>
+                <h2 class="text-xl font-bold text-red-600 mb-1 group-hover:text-red-400 transition">Logout</h2>
+                <p class="text-gray-600 text-center mb-4">Log out from your account securely.</p>
+                <span class="mt-auto btn-logout group-hover:opacity-90 transition">Logout</span>
+            </a>
+        </div>
+    </main>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
